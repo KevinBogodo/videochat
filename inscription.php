@@ -5,31 +5,61 @@
 
 
     $errors = array();
+    require_once 'php/db.php';
 
     if (empty($_POST['pseudo']) || !preg_match('/^[a-zA-Z0-9_]+$/', $_POST['pseudo'])) {
 
       $errors['pseudo'] = "votre pseudo n'est pas valide";
     }
+    else {
+        $req = $pdo->prepare('SELECT id FROM utilisateurs WHERE pseudo=?');
+        $req->execute([$_POST['pseudo']]);
+        $user = $req->fetch();
+        if ($user) {
+          $errors ['pseudo'] = 'pseudo déja utiliser';
+        }
+    }
 
     if (empty($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
       $errors['email'] = "Votre email n'est pas valide";
     }
+    else {
+        $req = $pdo->prepare('SELECT id FROM utilisateurs WHERE pseudo=?');
+        $req->execute([$_POST['email']]);
+        $user = $req->fetch();
+        if ($user) {
+          $errors ['email'] = 'Email déja utiliser';
+        }
+    }
+
+
     if (empty($_POST['password']) || $_POST['password'] != $_POST['confpassword']) {
       $errors['password'] = "vous devez rentrer un mot de passe valide";
     }
 
     if (empty($errors)) {
-      require_once 'php/db.php';
+
       $req = $pdo->prepare("INSERT INTO utilisateurs set pseudo = ?, email = ?, mobile = ?,  password = ?");
       $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
       $req->execute([$_POST['pseudo'], $_POST['email'], $_POST['mobile'], $password]);
       die('notre compte à bien été créé');
     }
 
-  debug($errors);
+
   }
  ?>
 
+<?php if (!empty($errors)): ?>
+  <div class="alert alert-danger">
+      <p>vous n'avez pas rempli correctement</p>
+      <ul>
+      <?php foreach ($errors as $errors): ?>
+          <li><?= $errors; ?></li>
+      <?php endforeach; ?>
+      </ul>
+
+  </div>
+<?php endif; ?>
 
 
 <form action="" method="POST">
