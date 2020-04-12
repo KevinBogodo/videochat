@@ -1,4 +1,4 @@
-
+<?php require 'functions.php'; ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -9,7 +9,7 @@
   </head>
   <body >
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">
+  <a class="navbar-brand" href="/index.php">
     <img src="img\camera.png" width="30" height="30" class="d-inline-block align-top" alt="">
     Videochat
   </a>
