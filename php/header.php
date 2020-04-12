@@ -5,7 +5,7 @@
     <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/css/bootstrap.min.css" media="all">
     <meta charset="utf-8">
-    <title></title>
+    <title>videochat</title>
   </head>
   <body >
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -20,3 +20,4 @@
 
 
 </nav>
+<div class="container">

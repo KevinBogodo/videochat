@@ -1,4 +1,4 @@
-<?php include 'php\header.php'; ?>
+<?php require 'php/header.php'; ?>
 
 
 
@@ -16,13 +16,11 @@
     <input type="checkbox" class="form-check-input" id="exampleCheck1">
     <label class="form-check-label" for="exampleCheck1">Je ne suis pas un robot</label>
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <div class="form-group">
+    <label for="inscription"><a href="inscription.php">Inscrition</a></label>
+    <label for="inscription"><a href="resetmdp.php">Mot de passe oublier</a></label>
+  </div>
+  <button type="submit" class="btn btn-primary">Connexion</button>
 </form>
 
-
-
-
-
-
-
-<?php include 'php\footer.php'; ?>
+<?php require 'php/footer.php'; ?>
