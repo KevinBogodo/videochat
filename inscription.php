@@ -24,7 +24,7 @@
       $errors['email'] = "Votre email n'est pas valide";
     }
     else {
-        $req = $pdo->prepare('SELECT id FROM utilisateurs WHERE pseudo=?');
+        $req = $pdo->prepare('SELECT id FROM utilisateurs WHERE email=?');
         $req->execute([$_POST['email']]);
         $user = $req->fetch();
         if ($user) {
@@ -39,10 +39,13 @@
 
     if (empty($errors)) {
 
-      $req = $pdo->prepare("INSERT INTO utilisateurs set pseudo = ?, email = ?, mobile = ?,  password = ?");
+      $req = $pdo->prepare("INSERT INTO utilisateurs set pseudo = ?, email = ?, mobile = ?,  password = ?, confirmation_token=?");
       $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
-      $req->execute([$_POST['pseudo'], $_POST['email'], $_POST['mobile'], $password]);
-      die('notre compte à bien été créé');
+      $token = str_random(60);
+      $req->execute([$_POST['pseudo'], $_POST['email'], $_POST['mobile'], $password, $token]);
+      $user_id = $pdo->lastInsertId();
+      mail($_POST['email'], 'confirmation de votre compte',"afin de valider votre compte merci de cliquer sur ce lien\n\n http://videochat/confirme.php?id=$user_id&token=$token");
+        header('Location: index.php');
     }
 
 
