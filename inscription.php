@@ -44,7 +44,7 @@
       $token = str_random(60);
       $req->execute([$_POST['pseudo'], $_POST['email'], $_POST['mobile'], $password, $token]);
       $user_id = $pdo->lastInsertId();
-      mail($_POST['email'], 'confirmation de votre compte',"afin de valider votre compte merci de cliquer sur ce lien\n\n http://videochat/confirme.php?id=$user_id&token=$token");
+      mail($_POST['email'], 'confirmation de votre compte', "afin de valider votre compte merci de cliquer sur ce lien\n\n http://videochat/confirme.php?id=$user_id&token=$token");
         header('Location: index.php');
     }
 
